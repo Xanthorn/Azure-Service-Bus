@@ -5,6 +5,5 @@ namespace API.Sender.Domain.Services
     public interface IAzureServiceBusService
     {
         Task SendMessage(User user);
-        Task ReceiveMessage();
     }
 }

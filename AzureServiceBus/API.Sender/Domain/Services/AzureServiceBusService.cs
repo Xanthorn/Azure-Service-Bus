@@ -16,11 +16,6 @@ namespace API.Sender.Domain.Services
             _sender = _client.CreateSender(queueName);
         }
 
-        public async Task ReceiveMessage()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task SendMessage(User user)
         {
             ServiceBusMessage message = new($"{user.Id},{user.Email},{user.FirstName},{user.LastName},{user.Age}");
