@@ -93,5 +93,21 @@ namespace API.Sender.Domain.Services
                 return null;
             }
         }
+
+        public async Task ActivateUser(int id)
+        {
+            User user = await _dbContext.Users
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user == null)
+            {
+                return;
+            }
+
+            user.IsActive = true;
+            await _dbContext.SaveChangesAsync();
+
+            return;
+        }
     }
 }
