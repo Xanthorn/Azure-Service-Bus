@@ -37,14 +37,14 @@ namespace API.Sender.Domain.Services
             }
         }
 
-        public async Task<User> AddUser(AddUser.Command request)
+        public async Task<User?> AddUser(AddUser.Command request)
         {
             User user = await _dbContext.Users
                 .FirstOrDefaultAsync(x => x.Email == request.Email);
 
             if (user != null)
             {
-                return null; // TO DO
+                return null;
             }
 
             user = new()
@@ -65,7 +65,7 @@ namespace API.Sender.Domain.Services
 
             else
             {
-                return null; // TO DO
+                return null;
             }
         }
 
@@ -75,14 +75,14 @@ namespace API.Sender.Domain.Services
                 .Where(x => x.IsActive).ToListAsync();
         }
 
-        public async Task<User> UpdateUser(UpdateUser.Command request)
+        public async Task<User?> UpdateUser(UpdateUser.Command request)
         {
             User user = await _dbContext.Users
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (user == null)
             {
-                return null; // TO DO
+                return null;
             }
 
             if (request.Email != null)
@@ -114,7 +114,7 @@ namespace API.Sender.Domain.Services
 
             else
             {
-                return null; // TO DO
+                return null;
             }
         }
     }

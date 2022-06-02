@@ -13,10 +13,10 @@ namespace API.Sender.CQRS.Commands
             public string? LastName { get; init; }
             public int? Age { get; init; }
         }
-        
+
         public record CommandResult
         {
-            public User User { get; init; }
+            public User? User { get; init; }
         }
 
         public class CommandHandler : IRequestHandler<Command, CommandResult>
@@ -34,7 +34,10 @@ namespace API.Sender.CQRS.Commands
             {
                 User user = await _userService.AddUser(request);
 
-                await _azureServiceBusService.SendMessage(user);
+                if (user != null)
+                {
+                    await _azureServiceBusService.SendMessage(user);
+                }
 
                 return new CommandResult { User = user };
             }
