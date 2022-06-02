@@ -1,5 +1,6 @@
 using API.Sender.Domain.Models;
 using API.Sender.Domain.Services;
+using API.Sender.Receivers;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,10 @@ builder.Services.AddSwaggerGen(options => options
 builder.Services.AddMediatR(typeof(Program));
 
 var app = builder.Build();
+
+var scope = app.Services.CreateScope();
+AzureServiceBusReceiver receiver = new(scope.ServiceProvider.GetRequiredService<IAzureServiceBusService>());
+receiver.ReceiveMessage();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

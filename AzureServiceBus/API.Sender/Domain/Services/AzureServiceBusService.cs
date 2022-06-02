@@ -33,6 +33,8 @@ namespace API.Sender.Domain.Services
             _processor.ProcessMessageAsync += MessageHandler;
             _processor.ProcessErrorAsync += ErrorHandler;
 
+            await _processor.StartProcessingAsync();
+
             await Task.Delay(TimeSpan.FromMinutes(5));
 
             await _processor.StopProcessingAsync();
@@ -49,7 +51,7 @@ namespace API.Sender.Domain.Services
             for (int i = 1; i < userProperties.Length; i++)
             {
                 userShouldBeActivated = string.IsNullOrEmpty(userProperties[i]);
-                if (!userShouldBeActivated)
+                if (userShouldBeActivated)
                 {
                     return;
                 }

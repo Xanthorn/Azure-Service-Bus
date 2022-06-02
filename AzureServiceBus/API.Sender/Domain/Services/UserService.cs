@@ -47,8 +47,7 @@ namespace API.Sender.Domain.Services
 
         public async Task<List<User>> GetUsers()
         {
-            return await _dbContext.Users
-                .Where(x => x.IsActive).ToListAsync();
+            return await _dbContext.Users.ToListAsync();
         }
 
         public async Task<User?> UpdateUser(UpdateUser.Command request)
