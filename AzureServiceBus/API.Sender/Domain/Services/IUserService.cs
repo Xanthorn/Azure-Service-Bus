@@ -8,5 +8,6 @@ namespace API.Sender.Domain.Services
         Task<User> AddUser(AddUser.Command request);
         Task<User> UpdateUser(UpdateUser.Command request);
         Task<List<User>> GetUsers();
+        Task<bool> ActivateUser(ActivateUser.Command request);
     }
 }

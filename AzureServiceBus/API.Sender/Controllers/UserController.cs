@@ -40,5 +40,14 @@ namespace API.Sender.Controllers
             var result = await _mediator.Send(request);
             return Ok(result);
         }
+
+        [HttpPatch]
+        [Route("users/{id}/activate")]
+        public async Task<IActionResult> ActivateUser([FromRoute] int id, [FromBody] ActivateUser.Command request)
+        {
+            request = request with { Id = id };
+            var result = await _mediator.Send(request);
+            return Ok(result);
+        }
     }
 }
