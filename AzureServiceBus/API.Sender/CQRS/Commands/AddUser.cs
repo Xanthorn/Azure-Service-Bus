@@ -34,7 +34,7 @@ namespace API.Sender.CQRS.Commands
             {
                 User user = await _userService.AddUser(request);
 
-                await _azureServiceBusService.SendMessage(user.Id, user.Email);
+                await _azureServiceBusService.SendMessage(user);
 
                 return new CommandResult { User = user };
             }

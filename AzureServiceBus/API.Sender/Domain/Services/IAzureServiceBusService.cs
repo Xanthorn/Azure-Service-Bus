@@ -1,8 +1,10 @@
-﻿namespace API.Sender.Domain.Services
+﻿using API.Sender.Domain.Models;
+
+namespace API.Sender.Domain.Services
 {
     public interface IAzureServiceBusService
     {
-        Task SendMessage(int id, string email);
+        Task SendMessage(User user);
         Task ReceiveMessage();
     }
 }

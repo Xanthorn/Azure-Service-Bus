@@ -1,4 +1,5 @@
-﻿using Azure.Messaging.ServiceBus;
+﻿using API.Sender.Domain.Models;
+using Azure.Messaging.ServiceBus;
 
 namespace API.Sender.Domain.Services
 {
@@ -20,9 +21,9 @@ namespace API.Sender.Domain.Services
             throw new NotImplementedException();
         }
 
-        public async Task SendMessage(int id, string email)
+        public async Task SendMessage(User user)
         {
-            ServiceBusMessage message = new($"{id},{email}");
+            ServiceBusMessage message = new($"{user.Id},{user.Email},{user.FirstName},{user.LastName},{user.Age}");
 
             await _sender.SendMessageAsync(message);
         }
