@@ -22,15 +22,19 @@ namespace API.Sender.CQRS.Commands
         public class CommandHandler : IRequestHandler<Command, CommandResult>
         {
             private readonly IUserService _userService;
+            private readonly IAzureServiceBusService _azureServiceBusService;
 
-            public CommandHandler(IUserService userService)
+            public CommandHandler(IUserService userService, IAzureServiceBusService azureServiceBusService)
             {
                 _userService = userService;
+                _azureServiceBusService = azureServiceBusService;
             }
 
             public async Task<CommandResult> Handle(Command request, CancellationToken cancellationToken)
             {
                 User user = await _userService.AddUser(request);
+
+                await _azureServiceBusService.SendMessage(user.Id, user.Email);
 
                 return new CommandResult { User = user };
             }
