@@ -13,30 +13,6 @@ namespace API.Sender.Domain.Services
             _dbContext = dbContext;
         }
 
-        public async Task<bool> ActivateUser(ActivateUser.Command request)
-        {
-            User user = await _dbContext.Users
-                .FirstOrDefaultAsync(x => x.Id == request.Id);
-
-            if (user == null)
-            {
-                return false;
-            }
-
-            user.IsActive = true;
-            int success = await _dbContext.SaveChangesAsync();
-
-            if (success > 0)
-            {
-                return true;
-            }
-
-            else
-            {
-                return false;
-            }
-        }
-
         public async Task<User?> AddUser(AddUser.Command request)
         {
             User user = await _dbContext.Users
